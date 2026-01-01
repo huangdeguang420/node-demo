@@ -18,20 +18,18 @@
       const name = document.getElementById("nameInput").value;
       const res = await fetch(`/api/greet?name=${encodeURIComponent(name)}`);
       const data = await res.json();
-      document.getElementById("reply").textContent = data.message;
+      document.getElementById('reply').innerText = data.message;
     }
-
     async function sendPost() {
       const name = document.getElementById("nameInput").value;
       const res = await fetch(`/api/greet`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
         body: JSON.stringify({ name })
       });
       const data = await res.json();
-      document.getElementById("reply").textContent = data.message;
+      document.getElementById('reply').innerText = data.message;
     }
   </script>
-
 </body>
 </html>
