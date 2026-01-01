@@ -1,25 +1,37 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Node 升级示例首页</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Vercel Node 示例</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <img src="logo.png" alt="LOGO" width="150">
-    <h1>Node 升级网站示例</h1>
-    <p>输入你的名字，点击发送，Node 会返回问候：</p>
+  <h1>🔥 Vercel Node 示例</h1>
 
-    <input type="text" id="nameInput" placeholder="输入你的名字">
-    <button id="sendBtn">发送 GET</button>
-    <button id="sendPostBtn">发送 POST</button>
+  <input id="nameInput" placeholder="输入名字">
+  <button onclick="sendGet()">GET 请求</button>
+  <button onclick="sendPost()">POST 请求</button>
+  <p id="reply"></p>
 
-    <p id="greeting"></p>
+  <script>
+    async function sendGet() {
+      const name = document.getElementById("nameInput").value;
+      const res = await fetch(`/api/greet?name=${encodeURIComponent(name)}`);
+      const data = await res.json();
+      document.getElementById("reply").textContent = data.message;
+    }
 
-    <a href="about.html">关于页面</a>
-
-    <script src="script.js"></script>
-
+    async function sendPost() {
+      const name = document.getElementById("nameInput").value;
+      const res = await fetch(`/api/greet`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name })
+      });
+      const data = await res.json();
+      document.getElementById("reply").textContent = data.message;
+    }
+  </script>
 
 </body>
 </html>
